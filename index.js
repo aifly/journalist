@@ -1,9 +1,7 @@
-console.log('vue start1 ...')
 import Vue from "vue";
-import Main from './components/main.vue'
-import Index from './components/index.vue';
-import Obserable from './components/obserable.js';
-import imgs from './components/assets.js'
+import Index from './components/index/index';
+import Obserable from './components/lib/obserable';
+import imgs from './components/lib/assets'
 import $ from 'jquery';
 var obserable = new Obserable();
 
@@ -14,18 +12,14 @@ var obserable = new Obserable();
 new Vue({
 	data: {
 		obserable,
-		music: './assets/music/bg.mp3',
 		rotate: false,
-
 		imgs
 
 	},
 	el: '#app',
 	template: `<div>
-		<Main :obserable='obserable'></Main>
 		<Index :obserable='obserable'></Index>
 
-		<audio :src='music' autoplay ref='audio' loop></audio>
 		<div @click='toggleMusic' class='zmiti-play' :class='{"rotate":rotate}'>
 			<img :src='imgs.play'/>
 		</div>
@@ -62,7 +56,6 @@ new Vue({
 		},
 	},
 	components: {
-		Main,
 		Index
 	},
 	mounted() {
@@ -89,12 +82,12 @@ new Vue({
 			this.rotate = false;
 		});
 
-		this.$refs['audio'].play();
+		/*this.$refs['audio'].play();
 		var s = this;
 		document.addEventListener("WeixinJSBridgeReady", function() {
 			WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
 				s.$refs['audio'].play();
 			});
-		}, false);
+		}, false);*/
 	}
 })

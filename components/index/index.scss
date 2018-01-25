@@ -1,0 +1,72 @@
+﻿@import "../css/base.scss";
+
+html, body, div, p, ul, li, ol, dl, dt, dd, header, footer, video, h1, h2, h3, h4, canvas, section, figure {
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+html, body {
+	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	font-family: "Helvetica Neue", 'Helvetica', "Microsoft YaHei", '微软雅黑', arial, sans-serif;
+	font-size: 14px;
+	background: #fff;
+	overflow: hidden;
+}
+
+img {
+	border: none;
+	vertical-align: middle;
+	width: 100%;
+	height: auto;
+}
+
+.zmiti-index-main-ui {
+	z-index: 101;
+
+	.zmiti-index-camera {
+		@include pos(a);
+		z-index: 10;
+		width: 7rem;
+		left: 1.5rem;
+
+		.zmiti-wheel {
+			@include pos(a);
+			width: 2rem;
+			top: .2rem;
+			right: -.8rem;
+			z-index: 1;
+			//@include animation(rotate 5s linear infinite);
+		}
+
+		&>img {
+			z-index: 2;
+			@include pos(r);
+		}
+
+		.zmiti-camera-top {
+			z-index: 0;
+		}
+
+	}
+
+	.zmiti-index-bottom {
+		width: 10rem;
+		@include pos(a);
+		left: 0;
+		z-index: -1;
+		bottom: 0;
+	}
+
+}

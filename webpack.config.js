@@ -13,7 +13,7 @@ var config = {
     },
     devServer: {
         inline: true,
-        port: 4013,
+        port: 4015,
         hot: true
     },
     externals: {
