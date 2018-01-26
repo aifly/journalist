@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Index from './components/index/index';
+import Page1 from './components/page1/page1'
+import Copyright from './components/copyright/copyright'
 import Obserable from './components/lib/obserable';
 import imgs from './components/lib/assets'
 import $ from 'jquery';
@@ -19,7 +21,8 @@ new Vue({
 	el: '#app',
 	template: `<div>
 		<Index :obserable='obserable'></Index>
-
+		<Page1 :obserable='obserable'></Page1>
+		<Copyright :obserable='obserable'></Copyright>
 		<div @click='toggleMusic' class='zmiti-play' :class='{"rotate":rotate}'>
 			<img :src='imgs.play'/>
 		</div>
@@ -56,7 +59,9 @@ new Vue({
 		},
 	},
 	components: {
-		Index
+		Index,
+		Page1,
+		Copyright
 	},
 	mounted() {
 		var arr = [];

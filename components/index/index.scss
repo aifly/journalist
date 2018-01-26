@@ -45,7 +45,7 @@ img {
 			@include pos(a);
 			width: 2rem;
 			top: .2rem;
-			right: -.8rem;
+			right: -.7rem;
 			z-index: 1;
 			//@include animation(rotate 5s linear infinite);
 		}
@@ -55,8 +55,57 @@ img {
 			@include pos(r);
 		}
 
+		.zmiti-img-C1 {
+			@include pos(a);
+			width: 1rem;
+			height: 30vh;
+			top: 9vh;
+			right: .4rem;
+			z-index: 10;
+
+			.zmiti-img:nth-of-type(2) {
+				margin: .2rem 0;
+			}
+
+		}
+
+		.zmiti-img {
+			@include pos(r);
+
+			.zmiti-img-bg {
+				@include pos(a);
+				left: 0;
+				top: 0;
+				z-index: -1;
+			}
+
+		}
+
+		.zmiti-img-C2 {
+			@include pos(a);
+			@include displayBox(horizontal);
+			width: 5.5rem;
+			bottom: .3rem;
+			z-index: 10;
+			left: .1rem;
+
+			&>div {
+				-webkit-box-flex: 1;
+				margin: 0 .1rem;
+			}
+
+		}
+
 		.zmiti-camera-top {
 			z-index: 0;
+		}
+
+		.zmiti-sure {
+			width: 1rem;
+			@include pos(a);
+			bottom: .3rem;
+			right: .3rem;
+			z-index: 11;
 		}
 
 	}
