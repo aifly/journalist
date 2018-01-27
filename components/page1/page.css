@@ -34,10 +34,18 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
 .zmiti-page1-main-ui {
+  opacity: 0;
+  -webkit-transition: 1s 0.4s;
+  transition: 1s 0.4s;
   color: #054485;
   background: #fff;
-  z-index: 102;
+  z-index: -1;
   font-size: 12px; }
+  .zmiti-page1-main-ui.show {
+    z-index: 102;
+    opacity: 1; }
+  .zmiti-page1-main-ui > section {
+    padding-bottom: 1rem; }
   .zmiti-page1-main-ui .zmiti-video-main-ui {
     position: relative; }
     .zmiti-page1-main-ui .zmiti-video-main-ui .zmiti-video-C {
@@ -49,6 +57,14 @@
       border-radius: 10px;
       border: 1px solid #2b6198;
       height: 3.95rem; }
+      .zmiti-page1-main-ui .zmiti-video-main-ui .zmiti-video-C .zmiti-paused {
+        position: absolute;
+        z-index: 100;
+        width: 1rem;
+        left: 50%;
+        margin-left: -.5rem;
+        top: 50%;
+        margin-top: -.5rem; }
       .zmiti-page1-main-ui .zmiti-video-main-ui .zmiti-video-C video {
         border-radius: 10px;
         width: 100%;
@@ -78,11 +94,13 @@
       .zmiti-page1-main-ui .zmiti-item .zmiti-j-content .zmiti-j-text {
         text-indent: 2em;
         line-height: .6rem; }
+        .zmiti-page1-main-ui .zmiti-item .zmiti-j-content .zmiti-j-text > div {
+          margin: 10px 0; }
     .zmiti-page1-main-ui .zmiti-item .zmiti-microphone {
       position: absolute;
       width: 1.4rem;
       right: 1rem;
-      top: .7rem; }
+      top: .4rem; }
     .zmiti-page1-main-ui .zmiti-item > img.zmiti-bg {
       width: 9rem;
       display: block;

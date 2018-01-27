@@ -5,17 +5,22 @@ import Copyright from './components/copyright/copyright'
 import Obserable from './components/lib/obserable';
 import imgs from './components/lib/assets'
 import $ from 'jquery';
+import './components/lib/touch.js';
 var obserable = new Obserable();
 
 
 //Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
 new Vue({
 	data: {
 		obserable,
 		rotate: false,
-		imgs
+		imgs,
+		showMask: false,
+		bg: './assets/music/bg.mp3',
+		viewH: document.documentElement.clientHeight
 
 	},
 	el: '#app',
@@ -25,6 +30,12 @@ new Vue({
 		<Copyright :obserable='obserable'></Copyright>
 		<div @click='toggleMusic' class='zmiti-play' :class='{"rotate":rotate}'>
 			<img :src='imgs.play'/>
+		</div>
+
+		<audio ref='audio' :src='bg' loop autoplay></audio>
+
+		<div :style="{height:viewH+'px'}"  class="zmiti-mask" v-if='showMask' @touchstart='showMask = false'>
+			<img :src="imgs.arrow" alt="">
 		</div>
 	</div>`,
 	methods: {
@@ -57,6 +68,16 @@ new Vue({
 			var music = this.$refs['audio'];
 			music[music.paused ? 'play' : 'pause']()
 		},
+		updatePv() {
+			$.ajax({
+				url: window.protocol + '//api.zmiti.com/v2/custom/update_pvnum/',
+				type: 'post',
+				data: {
+					//isrand: 0,
+					customid: 36
+				}
+			});
+		}
 	},
 	components: {
 		Index,
@@ -64,12 +85,8 @@ new Vue({
 		Copyright
 	},
 	mounted() {
-		var arr = [];
-		for (var attr in imgs) {
-			arr.push(imgs[attr]);
-		}
 
-		this.loading(arr, (s) => {
+		/*this.loading(arr, (s) => {
 			obserable.trigger({
 				type: 'loading',
 				data: s * 100 | 0
@@ -78,6 +95,10 @@ new Vue({
 			obserable.trigger({
 				type: 'loaded'
 			})
+		})*/
+
+		obserable.on('showShare', () => {
+			this.showMask = true;
 		})
 
 
@@ -87,12 +108,19 @@ new Vue({
 			this.rotate = false;
 		});
 
-		/*this.$refs['audio'].play();
+		this.$refs['audio'].volume = .3;
+		this.$refs['audio'].play();
 		var s = this;
 		document.addEventListener("WeixinJSBridgeReady", function() {
 			WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
 				s.$refs['audio'].play();
 			});
-		}, false);*/
+		}, false)
+
+		obserable.on('toggleBgMusic', (data) => {
+			this.$refs['audio'][data ? 'play' : 'pause']();
+		});
+
+		this.updatePv();
 	}
 })

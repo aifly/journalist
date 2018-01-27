@@ -1,5 +1,5 @@
 <template>
-	<div v-if='showCopyright' class="zmiti-copyright-main-ui lt-full">
+	<div v-show='showCopyright' class="zmiti-copyright-main-ui lt-full">
 		<section>
 			<h1 class="zmiti-fill"></h1>
 			<img :src='imgs.copyright1'/>

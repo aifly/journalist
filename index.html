@@ -4,7 +4,58 @@
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
-	<title>好记者</title>
+	<title>你眼中的记者工作很“高大上”？其实也可能这样</title>
+	<style>
+	body,div{margin: 0;padding: 0;}
+		.zmiti-loading{
+			z-index: 5000;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;height: 100%;
+			background: url(./assets/images/loading.jpg) no-repeat center;background-size: cover;
+		}
+
+		.zmiti-loading-C{
+			width: 7rem;
+			position: absolute;
+			left: 1.5rem;
+			top: 5rem;
+			height: 1rem;
+			border:1px solid #2a6096;
+		}
+		.zmiti-loading-bar{
+			position: absolute;
+			width: 96%;
+			left: 2%;
+			height: .8rem;
+			top: .1rem;
+			box-sizing: border-box;
+			border:1px solid #2a6096;
+			overflow: hidden;
+		}
+		.zmiti-loading-bar>div{
+			position: absolute;
+			left: 0;top:0;
+			width: 100%;height: 100%;
+			-webkit-transform:translateX(-100%);
+			
+		}
+		.zmiti-m{
+			width: 1rem;
+		}
+		#zmiti-progress{
+			width: 100%;
+			height: 1rem;
+			position: absolute;
+			top: 1rem;
+			line-height: 1rem;
+			font-family: Georgia;
+			font-size: .8rem;
+			text-align: center;
+			color:#2a6096;
+		}
+	</style>
 	<script>
 		document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth / 10 + 'px';
 		window.protocol = location.protocol;
@@ -25,24 +76,151 @@
 		document.addEventListener('touchmove',function(e){e.preventDefault()},{passive:false})
 	</script>
 </head>
-<body>
-	<div id="app"></div>	
+<body style="background: url(./assets/images/bg.png) repeat-y;">
+	<div id="app"></div>
+	<div class="zmiti-loading" id="zmiti-loading">
+		<div class="zmiti-loading-C">
+			<div class="zmiti-loading-bar">
+				<div id='bar' style="-webkit-transform:translateX(-100%)">
+					<img id="zmiti-loading-img" src="./assets/images/loading-bar.png">
+				</div>
+			</div>
+			<div id="zmiti-progress">0%</div>
+			<img id="m" class="zmiti-m" src="./assets/images/m.png" />
+		</div>
+	</div>	
 	<script>
-		function onError(src){
-		var script = document.createElement('script');
-		script.src =src;
-		document.body.appendChild(script)
-	}
 
-    (function(){
-       var script = document.createElement('script');
-       script.src = window.protocol + '//res.wx.qq.com/open/js/jweixin-1.2.0.js';
-       document.body.appendChild(script);
-    })()
-  	//onError('./assets/js/index3.js');   
+
+		var imgs = {
+			title: './assets/images/title.png',
+			play: './assets/images/play.png',
+			logo: './assets/images/logo.png',
+			share: './assets/images/share.png',
+			arrow: './assets/images/arrow.png',
+			bottom: './assets/images/bottom.png',
+			camera: './assets/images/camera.png',
+			camera1: './assets/images/camera1.png',
+			camera2: './assets/images/camera2.png',
+			sure: './assets/images/sure.png',
+			wheel: './assets/images/wheel.png',
+			play: './assets/images/play.png',
+			img1: './assets/images/1.png',
+			img2: './assets/images/2.png',
+			img3: './assets/images/3.png',
+			img4: './assets/images/4.png',
+			img5: './assets/images/5.png',
+			img6: './assets/images/6.png',
+			img7: './assets/images/7.png',
+			imgBg: './assets/images/img-bg.png',
+			imgBg1: './assets/images/img-bg1.png',
+
+			bg:'./assets/images/bg.png',
+
+			j1: './assets/images/j1.jpg',
+			jbg1: './assets/images/j-bg1.jpg',
+			jbg2: './assets/images/j-bg2.jpg',
+			jbg21: './assets/images/j-bg2-1.jpg',
+			jbg22: './assets/images/j-bg2-2.jpg',
+			jbg3: './assets/images/j-bg3.jpg',
+			jbg4: './assets/images/j-bg4-1.jpg',
+			jbg5: './assets/images/j-bg5.jpg',
+
+			hhh: './assets/images/hhh.jpg',
+			jc: './assets/images/jc.jpg',
+			lyj: './assets/images/lyj.jpg',
+			xwx: './assets/images/xwx.jpg',
+			ms: './assets/images/ms.gif',
+			msImg: './assets/images/ms1.gif',
+			wjj: './assets/images/wjj.gif',
+			wjjImg: './assets/images/wjj.jpg',
+
+			zl: './assets/images/zl.gif',
+			zlImg: './assets/images/zl.jpg',
+
+
+
+			line: './assets/images/line.jpg',
+			back: './assets/images/back.png',
+			microphone: './assets/images/microphone.jpg',
+			download: './assets/images/download.png',
+
+			hhhPoster: './assets/images/hhh-poster.jpg',
+			xwxPoster: './assets/images/xwx-poster.jpg',
+			jcPoster: './assets/images/jc-poster.jpg',
+			lyjPoster: './assets/images/lyj-index.jpg',
+
+			hhhIndex: './assets/images/hhh-index.jpg',
+			jcIndex: './assets/images/jc-index.gif',
+			lyjIndex: './assets/images/lyj-index.jpg',
+			wjjIndex: './assets/images/wjj-index.jpg',
+			zlIndex: './assets/images/zl-index.jpg',
+			msIndex: './assets/images/ms.gif',
+			xwxIndex: './assets/images/xwx-index.gif',
+
+			paused: './assets/images/paused.png',
+
+			copyright1: './assets/images/copyright-1.jpg'
+		}
+
+		var arr = [];
+			for (var attr in imgs) {
+				arr.push(imgs[attr]);
+			}
+		var loading = function(arr, fn, fnEnd) {
+				var len = arr.length;
+				var count = 0;
+				var i = 0;
+
+				function loadimg() {
+					if (i === len) {
+						return;
+					}
+					var img = new Image();
+					img.onload = img.onerror = function() {
+						count++;
+						if (i < len - 1) {
+							i++;
+							loadimg();
+							fn && fn(i / (len - 1), img.src);
+						} else {
+							fnEnd && fnEnd(img.src);
+						}
+					};
+					img.src = arr[i];
+				}
+				loadimg();
+			}
+
+
+			var bar = document.getElementById('bar');
+			var barStyle =bar.style;
+			var m = document.getElementById('m');
+			var mStyle = m.style;
+			var progress = document.getElementById('zmiti-progress');
+			loading(arr,function(e){
+				var scale = e * 100 | 0;
+				barStyle.WebkitTransform = 'translateX('+(e-1)*100+'%)';
+				mStyle.WebkitTransform = 'translateX('+e*6.5+'rem)';
+				progress.innerHTML = scale + '%';
+			},function(){
+				document.getElementById('zmiti-loading').style.display = 'none';
+				//window.init();
+			})
+		function loadScript(src){
+			var script = document.createElement('script');
+			script.src =src;
+			document.body.appendChild(script)
+		}
+	    (function(){
+	       var script = document.createElement('script');
+	       script.src = window.protocol + '//res.wx.qq.com/open/js/jweixin-1.2.0.js';
+	       document.body.appendChild(script);
+	    })()
+  		loadScript('./assets/js/index13.js');   
 	</script>
 <!-- 
--->
 	<script src='http://localhost:4015/index.js'></script> 
+-->
 </body>
 </html>
